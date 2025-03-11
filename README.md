@@ -4,14 +4,7 @@ Short science fiction story I finished in 2019
 
 Downloads https://github.com/mondoblack/mondoblack/releases
 
----
-author:
-- Tom Enderlin
-title: Mondoblack
----
-
 ![mondoblack door image](./mondoblack-door-gh.png)
-
 
 
 *It is by going down into the abyss that we recover the treasures of
