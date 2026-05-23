@@ -1,0 +1,39 @@
+name: Release LaTeX Document
+on:
+  push:
+    tags:
+      - release**
+      - Release**
+      - RELEASE**
+  workflow_dispatch: {}
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up git repository
+        uses: actions/checkout@v6
+
+      - name: Build the book
+        uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            apk add make zip tidyhtml wget ghostscript 
+            wget https://archive.org/download/kindlegen_linux_2_6_i386_v2_9/kindlegen_linux_2.6_i386_v2_9.tar.gz
+            tar xzf kindlegen_linux_2.6_i386_v2_9.tar.gz
+            mv kindlegen /usr/bin
+            make release_book
+            cd release
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -dPrinted=false -sOutputFile=mondoblack-compressed.pdf mondoblack.pdf
+            mv mondoblack-compressed.pdf mondoblack.pdf
+
+      - run: echo "RELEASE_BODY=$(git log -1 --format='%B')" >> $GITHUB_ENV
+
+      - name: Release the files
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            release/**
+          body: ${{ env.RELEASE_BODY }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

@@ -1,0 +1,28 @@
+name: Validate LaTeX Document
+on: 
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}
+jobs:
+  test_building_book:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up git repository
+        uses: actions/checkout@v6
+
+      - name: Test building book
+        uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            apk add make
+            make build_pdf
+      - name: Test building release versions
+        uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            apk add make zip tidyhtml wget
+            wget https://archive.org/download/kindlegen_linux_2_6_i386_v2_9/kindlegen_linux_2.6_i386_v2_9.tar.gz
+            tar xzf kindlegen_linux_2.6_i386_v2_9.tar.gz
+            mv kindlegen /usr/bin
+            make release_book
+

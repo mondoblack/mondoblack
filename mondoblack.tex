@@ -1,0 +1,49 @@
+\NeedsTeXFormat{LaTeX2e}
+\documentclass[final]{article}
+
+\ifdefined\isprintbook
+  \usepackage[size=pocket,bleed,top=1in]{createspace}%
+\else
+  \usepackage[paperheight=8in,paperwidth=5.25in]{geometry}%
+\fi
+
+\usepackage{setspace}
+\onehalfspacing
+\frenchspacing     % One character after end of sentence
+% handle OVERFULL warnings that push paragraph past margins
+\setlength{\emergencystretch}{3em}
+
+\title{Mondoblack}
+\author{Tom Enderlin}
+\date{}
+
+% FONTS
+
+\usepackage{mathpazo}  % Palatino font
+
+% SECTION NUMBERING
+\setcounter{secnumdepth}{1}
+
+% SECTION FORMATTING
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+\titleformat{name=\section,page=even}{
+  \normalfont\fontsize{48}{0}\bfseries\raggedright}{\color{black}\thesection}{0em}{}
+\titleformat{name=\section,page=odd}{
+  \normalfont\fontsize{48}{0}\bfseries\raggedleft}{\color{black}\thesection}{0em}{}
+
+\titlespacing{\section}{0pt}{40pt}{40pt}
+
+\newcommand{\subsectsep}{
+\begin{center}{}
+  $\ast$~$\ast$~$\ast$
+\end{center}}
+
+\newcommand{\includedoor}{
+  \includegraphics[width=0.50\textwidth]{images/mondoblack-door.png}
+}
+
+\input{mondoblack-document.tex}
