@@ -29,11 +29,11 @@ jobs:
       - run: echo "RELEASE_BODY=$(git log -1 --format='%B')" >> $GITHUB_ENV
 
       - name: Release the files
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             release/**
           body: ${{ env.RELEASE_BODY }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
 
