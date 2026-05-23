@@ -34,4 +34,4 @@ jobs:
           files: |
             release/**
           body: ${{ env.RELEASE_BODY }}
-
+          token: ${{ secrets.GITHUB_TOKEN }}
